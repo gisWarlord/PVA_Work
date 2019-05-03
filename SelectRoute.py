@@ -15,6 +15,9 @@
 '               was used to create the routes.
 '---------------------------------------------------------------------
 '   History:    Stan Shelton  -  04/2019
+'               Stan Shelton  -  05/2019
+'                   Changed the code that zooms to the selected route
+'                   to zoom out by 2%.
 '---------------------------------------------------------------------
 '''
 # Import modules
@@ -43,12 +46,12 @@ try:
 
     # Set the definition Queries of the Orders & Routes layers and zoom the the selected route
     for lyr in arcpy.mapping.ListLayers(mxd):
-        if lyr.name == "Orders" or lyr.name == "Routes":
-            if lyr.name == "Orders":
-                lyr.definitionQuery = "\"RouteName\" = '{0}'".format(routeValue)
-            elif lyr.name == "Routes":
-                lyr.definitionQuery = "\"Name\" = '{0}'".format(routeValue)
-                df.extent = lyr.getSelectedExtent()
+        if lyr.name == "Orders":
+            lyr.definitionQuery = "\"RouteName\" = '{0}'".format(routeValue)
+        elif lyr.name == "Routes":
+            lyr.definitionQuery = "\"Name\" = '{0}'".format(routeValue)
+            df.extent = lyr.getExtent()
+            df.scale = df.scale * 1.02      # zoom out by 2%
 
     # Change the title of the layout to include the route number
     for elm in arcpy.mapping.ListLayoutElements(mxd, "TEXT_ELEMENT"):
@@ -57,7 +60,7 @@ try:
             lstTitle = txtTitle.split(" ")
             elm.text = txtTitle.replace(lstTitle[-1], routeValue)
 
-    msg = "\t---  The Orders & Routes layer Query Definitions have been set to display \"Route {0}\"  ---".format(routeValue)
+    msg = "---\tThe Orders & Routes layer Query Definitions have been set to display \"Route {0}\"\t---".format(routeValue)
     ScriptUtils.AddMsgAndPrint(msg)
     arcpy.RefreshTOC()
     arcpy.RefreshActiveView()
