@@ -18,6 +18,9 @@
 '               Stan Shelton  -  04/2019
 '                   Changed the messages returned if the needed
 '                   variables are not entered.
+'               Stan Shelton  -  05/2019
+'                   Added code to clear the definition Queries of
+'                   the Orders & Routes layers.
 '---------------------------------------------------------------------
 '''
 # Import modules
@@ -50,6 +53,15 @@ if Orders == "#" or not Orders:
 Routing_Input_Table_View = "Routing_Input_Table_View"
 
 try:
+    mxd = arcpy.mapping.MapDocument("CURRENT")
+
+    # Clear the definition Queries of the Orders & Routes layers
+    for lyr in arcpy.mapping.ListLayers(mxd):
+        if lyr.name == "Orders":
+            lyr.definitionQuery = ""
+        elif lyr.name == "Routes":
+            lyr.definitionQuery = ""
+
     ScriptUtils.AddMsgAndPrint("\tJoining {0} to {1}...".format(Routing_Input_Table, Orders), 0)
     # Process: Make Table View
     arcpy.MakeTableView_management(Routing_Input_Table, Routing_Input_Table_View)
