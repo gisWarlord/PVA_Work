@@ -60,7 +60,7 @@ try:
             lstTitle = txtTitle.split(" ")
             elm.text = txtTitle.replace(lstTitle[-1], routeValue)
 
-    msg = "---\tThe Orders & Routes layer Query Definitions have been set to display \"Route {0}\"\t---".format(routeValue)
+    msg = "\t---\tThe Orders & Routes layer Query Definitions have been set to display \"Route {0}\"\t---".format(routeValue)
     ScriptUtils.AddMsgAndPrint(msg)
     arcpy.RefreshTOC()
     arcpy.RefreshActiveView()
