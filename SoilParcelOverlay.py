@@ -44,7 +44,7 @@ if sublot == '#' or not sublot or len(sublot) > 4:
 outDir = arcpy.GetParameterAsText(3)
 if outDir == "#" or not outDir:
     ScriptUtils.AddMsgAndPrint("\t--\tPlease select an output directory\t--", 0)
-    sys.exit(0)                                          # value needed
+    sys.exit(0)                                      # value needed
 
 # Local variables
 msgTxt = ""
