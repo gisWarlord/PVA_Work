@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 '---------------------------------------------------------------------
 ' Jefferson County Property Valuation Administrator (PVA)
@@ -32,7 +33,7 @@ msgTxt = ""
 startTime = time.time()
 
 try:
-
+    # Add main code 
 
 except:
     tb = sys.exc_info()[2]
